@@ -1,11 +1,14 @@
-package org.ntnu.PentBruktService.misc;
+package org.ntnu.PentBruktService.Domain;
 
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+// @Entity
 @XmlRootElement
 public class Profile {
+
+    // @NotNull
 
     private long id;
     private String profileName;

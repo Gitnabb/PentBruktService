@@ -1,7 +1,7 @@
 package org.ntnu.PentBruktService.Database;
 
-import org.ntnu.PentBruktService.misc.Item;
-import org.ntnu.PentBruktService.misc.Profile;
+import org.ntnu.PentBruktService.Domain.Item;
+import org.ntnu.PentBruktService.Domain.Profile;
 
 import java.util.HashMap;
 import java.util.Map;
