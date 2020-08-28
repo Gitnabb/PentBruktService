@@ -6,22 +6,22 @@ import java.util.Date;
 
 // @Entity
 @XmlRootElement
-public class Profile {
+public class User {
 
     // @NotNull
 
     private long id;
-    private String profileName;
+    private String userName;
     private String firstName;
     private String lastName;
-    private Date created;
+    private Date joined;
 
-    public Profile() {
+    public User() {
     }
 
-    public Profile(long id, String profileName, String firstName, String lastName) {
+    public User(long id, String userName, String firstName, String lastName) {
         this.id = id;
-        this.profileName = profileName;
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
 
@@ -35,12 +35,12 @@ public class Profile {
         this.id = id;
     }
 
-    public String getProfileName() {
-        return profileName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setProfileName(String profileName) {
-        this.profileName = profileName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -59,11 +59,11 @@ public class Profile {
         this.lastName = lastName;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getJoined() {
+        return joined;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setJoined(Date joined) {
+        this.joined = joined;
     }
 }

@@ -1,16 +1,17 @@
 package org.ntnu.PentBruktService.Domain;
 
-import javax.xml.bind.annotation.XmlRootElement;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@XmlRootElement
+
 public class Item {
 
     private long itemId;
     private String itemName;
-    private String profile;
-    private String created;
+    private String desc;
+    private int price;
+    private String published;
 
     public Item(){
 
@@ -19,8 +20,7 @@ public class Item {
     public Item(long itemId, String itemName, String profile) {
         this.itemId = itemId;
         this.itemName = itemName;
-        this.profile = profile;
-        this.created = new SimpleDateFormat("dd:MM:yyyy").format(new Date());
+        this.published = new SimpleDateFormat("dd:MM:yyyy").format(new Date());
     }
 
     public long getItemId() {
@@ -40,18 +40,26 @@ public class Item {
     }
 
     public String getCreated() {
-        return created;
+        return published;
     }
 
     public void setCreated(String created) {
-        this.created = created;
+        this.published = created;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

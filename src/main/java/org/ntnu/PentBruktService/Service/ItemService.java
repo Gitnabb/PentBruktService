@@ -43,20 +43,15 @@ public class ItemService {
         return items.remove(id);
     }
 
-    /*
+
      public Item updateItem(Item item){
-        if ( item.getIt <= 0){
+        if ( item.getItemId() <= 0){
             return null;
 
         }
-        items.put(item.getId(), message);
+        items.put(item.getItemId(), item);
         return item;
 
     }
-     */
-
-
-
-
 
 }
