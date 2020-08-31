@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestSystem {
 
-    private static EntityManagerFactory ENTITY_MANAGER_FACTORY
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY
             = Persistence.createEntityManagerFactory
             ("PentBruktService");
 
