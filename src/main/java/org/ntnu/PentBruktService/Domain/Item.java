@@ -1,13 +1,18 @@
 package org.ntnu.PentBruktService.Domain;
 
-
+import javax.persistence.*;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Entity
+@Table(name = "items")
+public class Item implements Serializable {
 
-public class Item {
-
+    @Id
+    @Column(name = "itemID", unique = true)
     private long itemId;
+
     private String itemName;
     private String desc;
     private int price;
@@ -43,8 +48,8 @@ public class Item {
         return published;
     }
 
-    public void setCreated(String created) {
-        this.published = created;
+    public void setPublished(String published) {
+        this.published = published;
     }
 
     public String getDesc() {
