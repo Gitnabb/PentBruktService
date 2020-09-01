@@ -1,52 +1,41 @@
 package org.ntnu.PentBruktService.Service;
 
-import org.ntnu.PentBruktService.Database.Database;
-import org.ntnu.PentBruktService.Domain.Item;
 import org.ntnu.PentBruktService.Domain.User;
 
-import javax.xml.crypto.Data;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.cdi.Transactional;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+@Transactional
 public class UserService {
 
-    private static Map<String, User> users = Database.getUsers();
-
-    public UserService() {
-
-        users.put("Kjetil", new User(1L, "ExtremeLudvig", "Kjetil", "Hammerseth"));
-
-    }
+    @PersistenceContext
+    public EntityManager entityManager;
 
     public List<User> getAllUsers(){
-
-        return new ArrayList<User>(users.values());
+        return this.entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
 
     }
 
-    public User getUser(String userName){
-        return users.get(userName);
+    public boolean registerUser(User user){
+        this.entityManager.persist(user);
+        User foundUser = this.entityManager.find(User.class, user.getId());
+        return foundUser != null;
     }
 
-    public User addUser(User user){
-        user.setId(users.size() + 1);
-        users.put(user.getUserName(), user);
-        return user;
-    }
-
-    public User updateUser(User user){
-
-        if(user.getUserName().isEmpty()){
-            return null;
+    public boolean login(String email, String password){
+        Query query = this.entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password");
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        if (query.getSingleResult() != null) {
+            return true;
+        } else{
+            return false;
         }
-        users.put(user.getUserName(), user);
-        return user;
-
-    }
-
-    public User removeUser(String userName){
-        return users.remove(userName);
     }
 
 }

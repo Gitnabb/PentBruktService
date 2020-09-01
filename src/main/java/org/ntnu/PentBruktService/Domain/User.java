@@ -1,69 +1,57 @@
 package org.ntnu.PentBruktService.Domain;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.ejb.Local;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 import java.util.Date;
 
-// @Entity
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @XmlRootElement
 public class User {
 
     // @NotNull
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @NotNull
+    @Column(unique = true)
     private String userName;
+
+    @NotNull
+    @Column(unique = true)
+    private String email;
+
+    // Encrypt
+    @NotNull
+    private String password;
+
+    @NotNull
     private String firstName;
+
+    @NotNull
     private String lastName;
-    private Date joined;
 
-    public User() {
+    @NotNull
+    private String city;
+
+    @NotNull
+    private LocalDate dateJoined;
+
+    @PrePersist
+    private void init(){
+        setDateJoined(LocalDate.now());
     }
 
-    public User(long id, String userName, String firstName, String lastName) {
-        this.id = id;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getJoined() {
-        return joined;
-    }
-
-    public void setJoined(Date joined) {
-        this.joined = joined;
-    }
 }

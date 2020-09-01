@@ -5,6 +5,7 @@ import java.util.List;
 
 public class TestSystem {
 
+    @PersistenceContext
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY
             = Persistence.createEntityManagerFactory
             ("PentBruktService");
@@ -26,14 +27,14 @@ public class TestSystem {
 
     public static void getItem(long id) {
         EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
-        String query = "SELECT item FROM Item item WHERE item.itemId = :itemID";
+        String query = "SELECT listing FROM Item listing WHERE listing.itemId = :itemID";
 
         TypedQuery<Item> typedQuery = entityManager.createQuery(query, Item.class);
         typedQuery.setParameter("itemID", id);
-        Item item = null;
+        Item listing = null;
         try {
-            item = typedQuery.getSingleResult();
-            System.out.println(item.getItemName());
+            listing = typedQuery.getSingleResult();
+            System.out.println(listing.getItemName());
         } catch (NoResultException exception) {
             exception.printStackTrace();
         } finally {
@@ -44,14 +45,14 @@ public class TestSystem {
 
     public static void getAllItems() {
         EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
-        String query = "SELECT item FROM Item item WHERE item.itemId = :itemID";
+        String query = "SELECT listing FROM Item listing WHERE listing.itemId = :itemID";
 
         TypedQuery<Item> typedQuery = entityManager.createQuery(query, Item.class);
         List<Item> items;
         try{
 
             items = typedQuery.getResultList();
-            items.forEach(item -> System.out.println(item.getItemName()));
+            items.forEach(listing -> System.out.println(listing.getItemName()));
         }catch (NoResultException exception) {
             exception.printStackTrace();
         } finally {
@@ -67,14 +68,14 @@ public class TestSystem {
         try {
             entityTransaction = entityManager.getTransaction();
             entityTransaction.begin();
-            Item item = new Item();
-            item.setItemId(id);
-            item.setItemName(itemName);
-            item.setDesc(desc);
-            item.setPrice(price);
-            item.setPublished(published);
+            Item listing = new Item();
+            listing.setItemId(id);
+            listing.setItemName(itemName);
+            listing.setDesc(desc);
+            listing.setPrice(price);
+            listing.setPublished(published);
 
-            entityManager.persist(item);
+            entityManager.persist(listing);
             entityTransaction.commit();
 
         } catch (Exception exception) {
@@ -90,16 +91,16 @@ public class TestSystem {
     public static void changeItemDesc(long id, String newDesc) {
         EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction entityTransaction = null;
-        Item item = null;
+        Item listing = null;
         try {
             entityTransaction = entityManager.getTransaction();
             entityTransaction.begin();
 
-            item = entityManager.find(Item.class, id);
-            item.setDesc(newDesc);
+            listing = entityManager.find(Item.class, id);
+            listing.setDesc(newDesc);
 
 
-            entityManager.persist(item);
+            entityManager.persist(listing);
             entityTransaction.commit();
 
         } catch (Exception exception) {
@@ -115,13 +116,13 @@ public class TestSystem {
     public static void deleteItem(long id) {
         EntityManager entityManager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction entityTransaction = null;
-        Item item = new Item();
+        Item listing = new Item();
         try {
             entityTransaction = entityManager.getTransaction();
             entityTransaction.begin();
 
-            item = entityManager.find(Item.class, id);
-            entityManager.remove(item);
+            listing = entityManager.find(Item.class, id);
+            entityManager.remove(listing);
 
             entityTransaction.commit();
 

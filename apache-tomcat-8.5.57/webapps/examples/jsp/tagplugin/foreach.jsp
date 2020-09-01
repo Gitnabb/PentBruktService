@@ -35,8 +35,8 @@
     <%@ page import="java.util.Vector" %>
 
     <h3>Iterating over a range</h3>
-    <c:forEach var="item" begin="1" end="10">
-        ${item}
+    <c:forEach var="listing" begin="1" end="10">
+        ${listing}
     </c:forEach>
 
     <% Vector<String> v = new Vector<>();
@@ -47,8 +47,8 @@
 
     <h3>Iterating over a Vector</h3>
 
-    <c:forEach items="${vector}" var="item" >
-        ${item}
+    <c:forEach items="${vector}" var="listing" >
+        ${listing}
     </c:forEach>
   </body>
 </html>

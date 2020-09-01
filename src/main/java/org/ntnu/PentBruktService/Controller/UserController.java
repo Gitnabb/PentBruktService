@@ -3,8 +3,11 @@ package org.ntnu.PentBruktService.Controller;
 import org.ntnu.PentBruktService.Domain.User;
 import org.ntnu.PentBruktService.Service.UserService;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/users")
@@ -12,37 +15,37 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserController {
 
-    private UserService userService = new UserService();
-
+    @Inject
+    private UserService userService;
 
     @GET
-    public List<User> getUsers(){
-        return userService.getAllUsers();
+    @Path("users")
+    public Response getUsers(){
+        return Response.ok(this.userService.getAllUsers()).build();
+    }
+
+    // REgister
+
+    @POST
+    @Path("register-user")
+    public Response registerUser(User user){
+        if(this.userService.registerUser(user)){
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
     @POST
-    public User addUser(User user){
-        return userService.addUser(user);
-    }
+    @Path("login")
+        public Response login(User user){
+            System.out.println("Email " + user.getEmail() + ", Password: " + user.getPassword());
+            if(this.userService.login(user.getEmail(), user.getPassword())){
+                return Response.ok().build();
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
 
-    @GET
-    @Path("/{userName}")
-    public User getUser(@PathParam("userName") String userName){
-        return userService.getUser(userName);
-    }
-
-    @PUT
-    @Path("/{userName}")
-    public User updateUser(@PathParam("userName") String userName, User user){
-        user.setUserName(userName);
-        return userService.updateUser(user);
-    }
-
-    @DELETE
-    @Path("/{userName}")
-    public User deleteUser(@PathParam("userName") String userName){
-        return userService.removeUser(userName);
-    }
-
+        }
 
 }

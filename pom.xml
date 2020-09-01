@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>org.ntnu.PentBruktService</groupId>
     <artifactId>PentBruktService</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -42,6 +42,11 @@
                 <groupId>org.hibernate.javax.persistence</groupId>
                 <artifactId>hibernate-jpa-2.1-api</artifactId>
                 <version>1.0.2.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
             </dependency>
 
 
@@ -94,10 +99,27 @@
                 <version>1.1</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.glassfish.extras/glassfish-embedded-web -->
+            <dependency>
+                <groupId>org.glassfish.extras</groupId>
+                <artifactId>glassfish-embedded-web</artifactId>
+                <version>3.2-b06</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -133,10 +155,20 @@
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-all</artifactId>
             <version>7.0</version>
+        </dependency>-->
+        <dependency>
+            <groupId>javax.transaction.cdi</groupId>
+            <artifactId>javax.transaction.cdi-api</artifactId>
+            <version>1.2-b03</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>wstx-api</artifactId>
+            <version>2.3.1-b411</version>
         </dependency>
 
     </dependencies>
